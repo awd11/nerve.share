@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>nerve. /_ // SYSTEM_MANUAL_v3.1.8</title>
+    <title>nerve. /_ // SYSTEM_MANUAL_v3.1.9</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
         
@@ -29,7 +29,7 @@
             position: relative;
         }
 
-        /* 1. Tactical CRT Overlay (Stationary Texture) */
+        /* CRT Overlay Texture */
         body::before {
             content: " ";
             display: block;
@@ -42,7 +42,7 @@
             pointer-events: none;
         }
 
-        /* 2. CRT Vignette */
+        /* CRT Vignette */
         body::after {
             content: " ";
             display: block;
@@ -53,7 +53,6 @@
             pointer-events: none;
         }
 
-        /* 3. Matrix Canvas */
         #matrixCanvas {
             position: fixed;
             top: 0;
@@ -64,7 +63,6 @@
             pointer-events: none;
         }
 
-        /* 4. Content Container */
         .container { 
             max-width: 900px; 
             margin: 0 auto; 
@@ -98,7 +96,16 @@
         .protocol-id { font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
         .protocol-status { font-size: 0.6rem; color: var(--lime); border: 1px solid var(--lime); padding: 2px 6px; }
         .short-desc { color: #aaa; font-size: 0.8rem; margin: 10px 0; }
-        .technical-details { font-size: 0.7rem; color: var(--paper); margin-top: 20px; padding-top: 20px; border-top: 1px dashed #444; display: none;}
+
+        .technical-details { 
+            font-size: 0.7rem; 
+            color: var(--paper); 
+            margin-top: 20px; 
+            padding-top: 20px; 
+            border-top: 1px dashed #444; 
+            display: none;
+        }
+
         .function-block:hover .technical-details { display: block; animation: fadeIn 0.4s ease; }
 
         .tech-line { display: flex; gap: 10px; margin-bottom: 8px; }
@@ -117,35 +124,73 @@
     <div class="container">
         <header>
             <div class="brand">nerve. /_ [OPERATING_MANIFESTO]</div>
-            <div class="status-bar">> SYS.STATUS: OPERATIONAL // > VER: 3.1.8 // > ACCESS: PUBLIC_DECRYPTED</div>
+            <div class="status-bar">> SYS.STATUS: OPERATIONAL // > VER: 3.1.9 // > ACCESS: PUBLIC_DECRYPTED</div>
         </header>
 
         <section>
             <h2>/_OVERVIEW</h2>
-            <p>nerve. /_ is a zero-friction neural interface designed to neutralize link-based surveillance.</p>
+            <p>nerve. /_ is a zero-friction neural interface designed to neutralize link-based surveillance. It functions as a granular HTTP request filter and redirect auditor, actively scrubbing PII (Personally Identifiable Information) from the data stream before browser registration.</p>
         </section>
 
         <section>
             <h2>/_CORE_PROTOCOLS</h2>
             
             <div class="function-block">
-                <div class="protocol-id"><span>/_NEUTRALIZER_ENGINE [NNE_01]</span><span class="protocol-status">ACTIVE</span></div>
+                <div class="protocol-id">
+                    <span>/_NEUTRALIZER_ENGINE [NNE_01]</span>
+                    <span class="protocol-status">ACTIVE</span>
+                </div>
                 <p class="short-desc">Granular URL sanitation. Tracker elimination.</p>
                 <div class="technical-details">
                     <div class="tech-line"><span class="tech-key">[OBJECTIVE]</span><span class="tech-val">Break the cross-site data chain.</span></div>
-                    <div class="tech-line"><span class="tech-key">[PROTOCOL]</span><span class="tech-val">Regex-based scrubbing of PII payloads.</span></div>
+                    <div class="tech-line"><span class="tech-key">[TARGETS]</span><span class="tech-val">UTM_, FBCLID, GCLID, SI, IGSHID, REF, MC_CID, CLICKID.</span></div>
+                    <div class="tech-line"><span class="tech-key">[PROTOCOL]</span><span class="tech-val">Intercepts navigation requests. Blacklisted query keys are purged via regex. URL is reconstructed without tracking payloads.</span></div>
+                    <div class="tech-line"><span class="tech-key">[RESULT]</span><span class="tech-val">Zero PII leakage. Data silos remain isolated.</span></div>
                 </div>
             </div>
 
             <div class="function-block">
-                <div class="protocol-id"><span>/_NEURAL_GUARD [NGE_02]</span><span class="protocol-status">ACTIVE</span></div>
+                <div class="protocol-id">
+                    <span>/_NEURAL_GUARD [NGE_02]</span>
+                    <span class="protocol-status">ACTIVE</span>
+                </div>
                 <p class="short-desc">Redirect audit. Destination pre-cleansing.</p>
                 <div class="technical-details">
-                    <div class="tech-line"><span class="tech-key">[OBJECTIVE]</span><span class="tech-val">Audit targets of shortened links.</span></div>
+                    <div class="tech-line"><span class="tech-key">[OBJECTIVE]</span><span class="tech-val">Audit final targets of shortened links.</span></div>
+                    <div class="tech-line"><span class="tech-key">[TARGETS]</span><span class="tech-val">BIT.LY, T.CO, TINYURL.COM, IS.GD, REBRAND.LY.</span></div>
+                    <div class="tech-line"><span class="tech-key">[PROTOCOL]</span><span class="tech-val">Performs background HEAD requests to traverse redirect chains. Resolves final destination and cleans it before click execution.</span></div>
+                    <div class="tech-line"><span class="tech-key">[RESULT]</span><span class="tech-val">User skips intermediate tracking hops. Destination is verified before entry.</span></div>
                 </div>
             </div>
-            
-            </section>
+
+            <div class="function-block">
+                <div class="protocol-id">
+                    <span>/_SIGNAL_RELAY [SRE_03]</span>
+                    <span class="protocol-status">ACTIVE</span>
+                </div>
+                <p class="short-desc">Mobile handoff. Clipboard sanitation.</p>
+                <div class="technical-details">
+                    <div class="tech-line"><span class="tech-key">[OBJECTIVE]</span><span class="tech-val">Secure cross-device data transmission.</span></div>
+                    <div class="tech-line"><span class="tech-key">[TARGETS]</span><span class="tech-val">WhatsApp, X, Slack, Mobile QR Scanner.</span></div>
+                    <div class="tech-line"><span class="tech-key">[PROTOCOL]</span><span class="tech-val">Generates localized QR matrix. Strips metadata from strings before clipboard injection.</span></div>
+                    <div class="tech-line"><span class="tech-key">[RESULT]</span><span class="tech-val">Clean links arrive on mobile without inheriting desktop browser history.</span></div>
+                </div>
+            </div>
+
+            <div class="function-block">
+                <div class="protocol-id">
+                    <span>/_WHITELIST_DB [WDE_04]</span>
+                    <span class="protocol-status">ACTIVE</span>
+                </div>
+                <p class="short-desc">Functional safe-guards. Exclusion zones.</p>
+                <div class="technical-details">
+                    <div class="tech-line"><span class="tech-key">[OBJECTIVE]</span><span class="tech-val">Maintain workflow integrity on critical sites.</span></div>
+                    <div class="tech-line"><span class="tech-key">[TARGETS]</span><span class="tech-val">OAuth domains, Banking tools, Affiliate portals.</span></div>
+                    <div class="tech-line"><span class="tech-key">[PROTOCOL]</span><span class="tech-val">User-defined domain exclusion. Hostname verification overrides neutralization logic.</span></div>
+                    <div class="tech-line"><span class="tech-key">[RESULT]</span><span class="tech-val">Critical tracking parameters are preserved where necessary for site logic.</span></div>
+                </div>
+            </div>
+        </section>
 
         <div class="footer">
             [SYS_INTEGRITY_CHECK: PASSED] // [END_OF_MANIFEST] // nerve. /_ /_
@@ -160,7 +205,6 @@
         const fontSize = 16;
         let drops = [];
 
-        // Mouse tracking
         const mouse = { x: -1000, y: -1000 };
         window.addEventListener('mousemove', (e) => {
             mouse.x = e.clientX;
@@ -182,7 +226,6 @@
         const characters = '01/_[]:';
 
         function drawMatrix() {
-            // Darken background slightly to create trails
             ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
             ctx.fillRect(0, 0, width, height);
 
@@ -191,20 +234,17 @@
                 const y = drops[i] * fontSize;
                 const text = characters.charAt(Math.floor(Math.random() * characters.length));
 
-                // CALCULATE DISTANCE FOR GLOW
                 const dx = x - mouse.x;
                 const dy = y - mouse.y;
                 const distance = Math.sqrt(dx * dx + dy * dy);
-                const radius = 180; // Size of the "flashlight"
+                const radius = 220; // Flashlight size
 
                 if (distance < radius) {
-                    // Brighten inside the circle
                     const opacity = 1 - (distance / radius);
-                    ctx.fillStyle = `rgba(192, 255, 0, ${0.1 + opacity * 0.8})`;
-                    ctx.shadowBlur = opacity * 10;
+                    ctx.fillStyle = `rgba(192, 255, 0, ${0.1 + opacity * 0.9})`;
+                    ctx.shadowBlur = opacity * 12;
                     ctx.shadowColor = '#C0FF00';
                 } else {
-                    // Dim outside the circle
                     ctx.fillStyle = 'rgba(192, 255, 0, 0.12)';
                     ctx.shadowBlur = 0;
                 }
@@ -218,7 +258,6 @@
                 drops[i]++;
             }
         }
-
         setInterval(drawMatrix, 35);
     </script>
 </body>
