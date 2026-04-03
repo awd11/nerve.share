@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>nerve. /_ // SYSTEM_MANUAL</title>
+    <title>nerve. /_ // SYSTEM_MANUAL_v3.1.5</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
         
@@ -11,6 +11,15 @@
             --black: #000000;
             --paper: #F5F5F5;
             --lime: #C0FF00;
+            --grey: #1A1A1A;
+            --border: 1px solid var(--paper);
+        }
+
+        * { 
+            box-sizing: border-box; 
+            border-radius: 0px !important; 
+            outline: none; 
+            cursor: crosshair; 
         }
 
         body {
@@ -21,72 +30,230 @@
             margin: 0;
             padding: 40px;
             text-transform: uppercase;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        .container { max-width: 800px; margin: 0 auto; border: 1px solid var(--paper); padding: 40px; }
-        
-        header { border-bottom: 2px solid var(--lime); padding-bottom: 20px; margin-bottom: 40px; }
-        
-        .brand { color: var(--lime); font-size: 2rem; font-weight: 700; }
-        
-        h2 { color: var(--lime); border-bottom: 1px dashed var(--paper); padding-bottom: 10px; margin-top: 40px; }
-
-        .function-block { margin-bottom: 30px; padding: 20px; background: #111; border-left: 4px solid var(--lime); }
-        
-        code { background: var(--paper); color: var(--black); padding: 2px 6px; font-weight: bold; }
-
-        .footer { margin-top: 60px; font-size: 0.8rem; color: #555; text-align: center; }
-
-        /* Scanning Line Effect */
-        body::after {
-            content: "";
+        /* 1. Subtle Matrix Rain Canvas */
+        #matrixCanvas {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 2px;
-            background: rgba(192, 255, 0, 0.1);
-            animation: scan 4s linear infinite;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1; /* Minimalist, non-polarizing */
+            z-index: -1;
+            filter: blur(1px);
         }
-        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+
+        .container { 
+            max-width: 900px; 
+            margin: 0 auto; 
+            border: var(--border); 
+            padding: 60px; 
+            position: relative; 
+            background: rgba(0,0,0,0.8); /* Slight opacity for readability over matrix */
+        }
+        
+        header { 
+            border-bottom: 2px solid var(--lime); 
+            padding-bottom: 20px; 
+            margin-bottom: 50px; 
+            position: relative;
+        }
+        
+        .brand { color: var(--lime); font-size: 2.2rem; font-weight: 700; letter-spacing: -1px;}
+        .status-bar { font-size: 0.8rem; color: #888; margin-top: 10px; }
+
+        h2 { color: var(--lime); border-bottom: 1px dashed var(--paper); padding-bottom: 10px; margin-top: 60px; }
+        
+        /* 2. Interaction: Function Blocks */
+        .function-block { 
+            margin-bottom: 20px; 
+            padding: 25px; 
+            background: var(--grey); 
+            border: 1px solid #333; 
+            position: relative; 
+            transition: all 0.2s ease-in-out;
+        }
+
+        .function-block:hover { 
+            border-color: var(--lime); 
+            transform: translateX(5px); /* Minimal, technical interaction */
+            box-shadow: -5px 0 0 var(--lime);
+        }
+
+        .protocol-id { 
+            font-weight: 700; 
+            color: var(--paper); 
+            font-size: 1rem; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        }
+        
+        .protocol-status { font-size: 0.6rem; color: var(--lime); border: 1px solid var(--lime); padding: 2px 6px; }
+
+        .short-desc { color: #aaa; font-size: 0.8rem; margin: 10px 0; }
+        
+        /* 3. Detailed Protocol Expansion Matrix */
+        .technical-details { 
+            font-size: 0.7rem; 
+            color: var(--paper); 
+            margin-top: 20px; 
+            padding-top: 20px; 
+            border-top: 1px dashed #444; 
+            display: none; /* Collapsed by default */
+        }
+
+        .function-block:hover .technical-details { display: block; animation: fadeIn 0.3s ease; }
+
+        .tech-line { display: flex; gap: 10px; margin-bottom: 8px; }
+        .tech-key { color: var(--lime); font-weight: 700; width: 150px; flex-shrink: 0;}
+        .tech-val { color: #ccc; }
+
+        code { background: var(--paper); color: var(--black); padding: 2px 6px; font-weight: bold; text-transform: none;}
+
+        .footer { margin-top: 80px; font-size: 0.7rem; color: #555; text-align: center; border-top: 1px solid #333; padding-top: 20px;}
+
+        /* Brutalist Keyframe Animation */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Interactive Scan Line on hover */
+        .brand:hover::after {
+            content: "";
+            position: absolute;
+            bottom: -2px; left: 0; width: 100%; height: 2px;
+            background: var(--paper);
+            animation: scanHorizontal 1s linear infinite;
+        }
+        @keyframes scanHorizontal { 0% { transform: scaleX(0); } 50% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
+
     </style>
 </head>
 <body>
+    
+    <canvas id="matrixCanvas"></canvas>
+
     <div class="container">
         <header>
-            <div class="brand">nerve. /_ [SYSTEM_MANUAL]</div>
-            <p>STATUS: OPERATIONAL // VERSION: 3.1.4</p>
+            <div class="brand">nerve. /_ [OPERATING_MANIFESTO]</div>
+            <div class="status-bar">> SYS.STATUS: OPERATIONAL // > VER: 3.1.5 // > CLASSIFICATION: PROPRIETARY</div>
         </header>
 
         <section>
             <h2>/_OVERVIEW</h2>
-            <p>nerve. /_ is a high-performance neural filter designed to neutralize link-based surveillance. It intercepts outgoing HTTP requests, strips tracking parameters, and resolves redirects before your browser registers the data leak.</p>
+            <p>nerve. /_ is a zero-friction neural interface designed to neutralize link-based surveillance. It functions as a granular HTTP request filter and redirect auditor, actively scrubbing PII (Personally Identifiable Information) from the data stream before browser registration.</p>
         </section>
 
         <section>
             <h2>/_CORE_PROTOCOLS</h2>
             
             <div class="function-block">
-                <strong>/_NEUTRALIZER_ENGINE</strong>
-                <p>Scans URLs for <code>utm_</code>, <code>fbclid</code>, <code>gclid</code>, and <code>igshid</code>. Deletes tracking identifiers to break the cross-site data chain.</p>
+                <div class="protocol-id">
+                    <span>/_NEUTRALIZER_ENGINE [NNE_01]</span>
+                    <span class="protocol-status">ACTIVE</span>
+                </div>
+                <p class="short-desc">Granular URL sanitation. Tracker elimination.</p>
+                <div class="technical-details">
+                    <div class="tech-line"><span class="tech-key">[OBJECTIVE]</span><span class="tech-val">Break the cross-site data chain.</span></div>
+                    <div class="tech-line"><span class="tech-key">[TARGETS]</span><span class="tech-val">Inbound query parameters (utm_, fbclid, gclid, si, igshid, ref, mc_cid, clickid).</span></div>
+                    <div class="tech-line"><span class="tech-key">[PROTOCOL]</span><span class="tech-val">Intercepts navigation request. URL string is parsed. Blacklisted keys are purged via regex. Final string is reconstructed.</span></div>
+                    <div class="tech-line"><span class="tech-key">[RESULT]</span><span class="tech-val">Prevent site B from acquiring data set generated on site A. Zero PII leakage.</span></div>
+                </div>
             </div>
 
             <div class="function-block">
-                <strong>/_SHORT_LINK_EXPANSION</strong>
-                <p>Background-resolves <code>bit.ly</code> and <code>t.co</code> links. Audits the destination and cleans the final URL before navigation occurs.</p>
+                <div class="protocol-id">
+                    <span>/_NEURAL_GUARD [NGE_02]</span>
+                    <span class="protocol-status">ACTIVE</span>
+                </div>
+                <p class="short-desc">Redirect audit. Destination pre-cleansing.</p>
+                <div class="technical-details">
+                    <div class="tech-line"><span class="tech-key">[OBJECTIVE]</span><span class="tech-val">Bypass tracking redirects and audit the final target.</span></div>
+                    <div class="tech-line"><span class="tech-key">[TARGETS]</span><span class="tech-val"><code>bit.ly</code>, <code>t.co</code>, <code>tinyurl.com</code>, <code>buff.ly</code>, <code>rebrand.ly</code>, <code>is.gd</code>.</span></div>
+                    <div class="tech-line"><span class="tech-key">[PROTOCOL]</span><span class="tech-val">Performs a <code>HEAD</code> request in the background. Traverses the redirect chain. Neutralizes trackers on the final destination URL. Rewrites the link DOM.</span></div>
+                    <div class="tech-line"><span class="tech-key">[RESULT]</span><span class="tech-val">Click takes user directly to clean destination, skipping the data-harvesting intermediate server hop.</span></div>
+                </div>
             </div>
 
             <div class="function-block">
-                <strong>/_SIGNAL_RELAY (QR)</strong>
-                <p>Generates a sanitized QR code for mobile handoff. Ensures your mobile browser does not inherit the desktop session trackers.</p>
+                <div class="protocol-id">
+                    <span>/_SIGNAL_RELAY [SRE_03]</span>
+                    <span class="protocol-status">ACTIVE</span>
+                </div>
+                <p class="short-desc">Mobile handoff. Clipboard sanitation.</p>
+                <div class="technical-details">
+                    <div class="tech-line"><span class="tech-key">[OBJECTIVE]</span><span class="tech-val">Secure handoff of clean data to external platforms.</span></div>
+                    <div class="tech-line"><span class="tech-key">[TARGETS]</span><span class="tech-val">WhatsApp, X, Slack, mobile devices (via QR).</span></div>
+                    <div class="tech-line"><span class="tech-key">[PROTOCOL]</span><span class="tech-val">The <code>/_DIFF_ANALYSIS</code> generates the sanitized string. Sharing hooks use direct native app handoff or secure share URLs (e.g., wa.me). QR is generated locally via `qrious.js` to prevent leaking the URL to a QR-generation API.</span></div>
+                    <div class="tech-line"><span class="tech-key">[RESULT]</span><span class="tech-val">Corporate and private paths remain internal. Shared links are verified clean on all receiving devices.</span></div>
+                </div>
             </div>
 
             <div class="function-block">
-                <strong>/_DIFF_ANALYSIS</strong>
-                <p>Visual proof of sanitation. Displays the raw 'dirty' URL versus the neutralized 'clean' result in the terminal interface.</p>
+                <div class="protocol-id">
+                    <span>/_WHITELIST_DB [WDE_04]</span>
+                    <span class="protocol-status">ACTIVE</span>
+                </div>
+                <p class="short-desc">Exclusion zone management. Functional safety.</p>
+                <div class="technical-details">
+                    <div class="tech-line"><span class="tech-key">[OBJECTIVE]</span><span class="tech-val">Prevent neutralization on sites where parameters are critical for operations.</span></div>
+                    <div class="tech-line"><span class="tech-key">[TARGETS]</span><span class="tech-val">OAuth login tokens, session identifiers, affiliate-critical payment sites.</span></div>
+                    <div class="tech-line"><span class="tech-key">[PROTOCOL]</span><span class="tech-val">User defines domain list in popup terminal. Engine performs a hostname check before executing neutralization. If match is found, all parameters are preserved.</span></div>
+                    <div class="tech-line"><span class="tech-key">[RESULT]</span><span class="tech-val">Extension operates with functional safe-guards. No critical workflows are broken.</span></div>
+                </div>
             </div>
         </section>
 
         <div class="footer">
-            [END_OF_MANIFEST] // PRIVACY_IS_THE_DEFAULT.
+            [SYS_INTEGRITY_CHECK: PASSED] // [END_OF_MANIFEST] // nerve. /_ /_
         </div>
     </div>
+
+    <script>
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+
+        // nerve. /_ aesthetics: Use only 1, 0, and terminal characters
+        const characters = '01/_[]:';
+        const fontSize = 12;
+        const columns = canvas.width / fontSize;
+
+        const drops = [];
+        for (let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+
+        function drawMatrix() {
+            // Slight trails over black background
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#C0FF00'; // Cyber Lime
+            ctx.font = fontSize + 'px "JetBrains Mono"';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.width && Math.random() > 0.99) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 35); // Slow, subtle rain
+
+        // Handle resize
+        window.addEventListener('resize', () => {
+            canvas.height = window.innerHeight;
+            canvas.width = window.innerWidth;
+        });
+    </script>
 </body>
 </html>
