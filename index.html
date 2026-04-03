@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nerve. /_ // SYSTEM_MANUAL</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+        
+        :root {
+            --black: #000000;
+            --paper: #F5F5F5;
+            --lime: #C0FF00;
+        }
+
+        body {
+            background-color: var(--black);
+            color: var(--paper);
+            font-family: 'JetBrains Mono', monospace;
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px;
+            text-transform: uppercase;
+        }
+
+        .container { max-width: 800px; margin: 0 auto; border: 1px solid var(--paper); padding: 40px; }
+        
+        header { border-bottom: 2px solid var(--lime); padding-bottom: 20px; margin-bottom: 40px; }
+        
+        .brand { color: var(--lime); font-size: 2rem; font-weight: 700; }
+        
+        h2 { color: var(--lime); border-bottom: 1px dashed var(--paper); padding-bottom: 10px; margin-top: 40px; }
+
+        .function-block { margin-bottom: 30px; padding: 20px; background: #111; border-left: 4px solid var(--lime); }
+        
+        code { background: var(--paper); color: var(--black); padding: 2px 6px; font-weight: bold; }
+
+        .footer { margin-top: 60px; font-size: 0.8rem; color: #555; text-align: center; }
+
+        /* Scanning Line Effect */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: rgba(192, 255, 0, 0.1);
+            animation: scan 4s linear infinite;
+        }
+        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="brand">nerve. /_ [SYSTEM_MANUAL]</div>
+            <p>STATUS: OPERATIONAL // VERSION: 3.1.4</p>
+        </header>
+
+        <section>
+            <h2>/_OVERVIEW</h2>
+            <p>nerve. /_ is a high-performance neural filter designed to neutralize link-based surveillance. It intercepts outgoing HTTP requests, strips tracking parameters, and resolves redirects before your browser registers the data leak.</p>
+        </section>
+
+        <section>
+            <h2>/_CORE_PROTOCOLS</h2>
+            
+            <div class="function-block">
+                <strong>/_NEUTRALIZER_ENGINE</strong>
+                <p>Scans URLs for <code>utm_</code>, <code>fbclid</code>, <code>gclid</code>, and <code>igshid</code>. Deletes tracking identifiers to break the cross-site data chain.</p>
+            </div>
+
+            <div class="function-block">
+                <strong>/_SHORT_LINK_EXPANSION</strong>
+                <p>Background-resolves <code>bit.ly</code> and <code>t.co</code> links. Audits the destination and cleans the final URL before navigation occurs.</p>
+            </div>
+
+            <div class="function-block">
+                <strong>/_SIGNAL_RELAY (QR)</strong>
+                <p>Generates a sanitized QR code for mobile handoff. Ensures your mobile browser does not inherit the desktop session trackers.</p>
+            </div>
+
+            <div class="function-block">
+                <strong>/_DIFF_ANALYSIS</strong>
+                <p>Visual proof of sanitation. Displays the raw 'dirty' URL versus the neutralized 'clean' result in the terminal interface.</p>
+            </div>
+        </section>
+
+        <div class="footer">
+            [END_OF_MANIFEST] // PRIVACY_IS_THE_DEFAULT.
+        </div>
+    </div>
+</body>
+</html>
